@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="admin_header">
+    <h1>Innstillingar</h1>
+    <div class="admin_actions">
+      <a class="btn subtle" href="{{ url_for('admin_dashboard') }}">Tilbake</a>
+    </div>
+  </div>
+
+  <form method="post" class="form">
+    {{ form.hidden_tag() }}
+
+    <label>Tittel på nettsida</label>
+    {{ form.site_title(class_="input") }}
+
+    <label>Hovudfarge hex</label>
+    {{ form.primary_color(class_="input") }}
+    <div class="muted small">Eksempel #2f6f5f eller #b23a48</div>
+
+    <label>Skrift font family</label>
+    {{ form.font_family(class_="input") }}
+    <div class="muted small">Eksempel system-ui, Segoe UI, Roboto, Arial, sans-serif</div>
+
+    {{ form.submit(class_="btn") }}
+  </form>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="admin_box">
+    <h1>Admin innlogging</h1>
+    <form method="post">
+      {{ form.hidden_tag() }}
+      <label>Brukarnamn</label>
+      {{ form.username(class_="input") }}
+      <label>Passord</label>
+      {{ form.password(class_="input") }}
+      {{ form.submit(class_="btn") }}
+    </form>
+    <p class="muted smallspace">Admin lenke ligg i footer på vanleg side.</p>
+  </div>
+{% endblock %}

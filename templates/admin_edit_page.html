@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="admin_header">
+    <h1>Rediger: {{ page.title }}</h1>
+    <div class="admin_actions">
+      <a class="btn subtle" href="{{ url_for('admin_dashboard') }}">Tilbake</a>
+    </div>
+  </div>
+
+  <form method="post" enctype="multipart/form-data" class="form">
+    {{ form.hidden_tag() }}
+
+    <div class="two">
+      <div>
+        <label>Tittel</label>
+        {{ form.title(class_="input") }}
+      </div>
+      <div>
+        <label>Adresse namn slug</label>
+        {{ form.slug(class_="input") }}
+        <div class="muted small">Blir /p/dette-namnet</div>
+      </div>
+    </div>
+
+    <div class="checks">
+      <label class="check">{{ form.is_hidden() }} Skjul sida</label>
+      <label class="check">{{ form.card_enabled() }} Vis kort på framsida</label>
+    </div>
+
+    <label>Korttittel</label>
+    {{ form.card_title(class_="input") }}
+
+    <label>Bilete til kort</label>
+    {{ form.card_image(class_="input") }}
+    {% if page.card_image %}
+      <div class="preview">
+        <div class="muted small">Noverande bilete</div>
+        <img src="{{ url_for('uploaded_file', filename=page.card_image) }}" alt="">
+      </div>
+    {% endif %}
+
+    <label>Innhald</label>
+    {{ form.content_html(class_="textarea", id="editor") }}
+
+    {{ form.submit(class_="btn") }}
+  </form>
+
+  <script>
+    tinymce.init({
+      selector: '#editor',
+      menubar: false,
+      height: 380,
+      plugins: 'link lists',
+      toolbar: 'undo redo | bold italic | bullist numlist | link',
+    });
+  </script>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="admin_header">
+    <h1>Admin</h1>
+    <div class="admin_actions">
+      <a class="btn subtle" href="{{ url_for('admin_settings') }}">Innstillingar</a>
+      <a class="btn subtle" href="{{ url_for('admin_logout') }}">Logg ut</a>
+    </div>
+  </div>
+
+  <h2>Sider</h2>
+  <div class="table">
+    <div class="row head">
+      <div>Tittel</div>
+      <div>Adresse</div>
+      <div>Skjult</div>
+      <div>Kort</div>
+      <div></div>
+    </div>
+    {% for p in pages %}
+      <div class="row">
+        <div>{{ p.title }}</div>
+        <div class="muted">/p/{{ p.slug }}</div>
+        <div>{{ "Ja" if p.is_hidden else "Nei" }}</div>
+        <div>{{ "Ja" if p.card_enabled and not p.is_hidden else "Nei" }}</div>
+        <div><a class="btn small" href="{{ url_for('admin_edit_page', page_id=p.id) }}">Rediger</a></div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <h2>Last opp bilete</h2>
+  <form method="post" action="{{ url_for('admin_upload') }}" enctype="multipart/form-data" class="upload_row">
+    {{ upload_form.hidden_tag() }}
+    {{ upload_form.file(class_="input") }}
+    {{ upload_form.submit(class_="btn") }}
+  </form>
+
+  <h3>Nyleg opplasta</h3>
+  <div class="uploads">
+    {% for u in uploads %}
+      <div class="upload_item">
+        <div class="muted">{{ u.original_name }}</div>
+        <div class="muted small">Fil: {{ u.filename }}</div>
+        <div class="upload_img">
+          <img src="{{ url_for('uploaded_file', filename=u.filename) }}" alt="">
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <p class="muted smallspace">Tips: for framside kort, gå inn på ei side og last opp bilete som kortbilete.</p>
+{% endblock %}

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="no">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ site_settings.site_title }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+</head>
+<body style="--primary: {{ site_settings.primary_color }}; --font: {{ site_settings.font_family }};">
+  <header class="wrap header">
+    <a class="brand" href="{{ url_for('index') }}">{{ site_settings.site_title }}</a>
+    <nav class="nav">
+      {% for p in nav_pages %}
+        <a href="{{ url_for('page', slug=p.slug) }}">{{ p.title }}</a>
+      {% endfor %}
+    </nav>
+  </header>
+
+  <main class="wrap">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash">
+          {% for cat, msg in messages %}
+            <div class="flash_item {{ cat }}">{{ msg }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="wrap footer">
+    <div class="muted">© {{ site_settings.site_title }}</div>
+    <div class="muted"><a class="admin_link" href="{{ url_for('admin_login') }}">admin</a></div>
+  </footer>
+</body>
+</html>

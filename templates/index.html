@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+  <section class="hero">
+    <h1>Velkommen til Dyrevenner Bak Hekken</h1>
+    <p>Klikk på bileta for å opne sida du vil lese.</p>
+  </section>
+
+  <section class="grid">
+    {% for p in cards %}
+      <a class="card" href="{{ url_for('page', slug=p.slug) }}">
+        <div class="card_img">
+          {% if p.card_image %}
+            <img src="{{ url_for('uploaded_file', filename=p.card_image) }}" alt="">
+          {% else %}
+            <div class="placeholder">Legg til bilete i admin</div>
+          {% endif %}
+        </div>
+        <div class="card_body">
+          <div class="card_title">{{ p.card_title or p.title }}</div>
+          <div class="card_hint">Trykk for å opne</div>
+        </div>
+      </a>
+    {% endfor %}
+  </section>
+{% endblock %}
