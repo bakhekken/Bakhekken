@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
   <section class="hero">
-    <h1>Velkommen til Dyrevenner Bak Hekken</h1>
-    <p>Klikk på bileta for å opne sida du vil lese.</p>
+    <h1>Dyrevenner Bak Hekken</h1>
+    <p>Trygge heimar og varme hjarte for kaniner</p>
   </section>
 
   <section class="grid">
@@ -17,7 +17,6 @@
         </div>
         <div class="card_body">
           <div class="card_title">{{ p.card_title or p.title }}</div>
-          <div class="card_hint">Trykk for å opne</div>
         </div>
       </a>
     {% endfor %}
