@@ -3,36 +3,88 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ site_settings.site_title }}</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-  <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+  <title>{{ site_settings.site_title if site_settings else "Dyrevenner bak hekken" }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}?v=3">
 </head>
-<body style="--primary: {{ site_settings.primary_color }}; --font: {{ site_settings.font_family }};">
-  <header class="wrap header">
-    <a class="brand" href="{{ url_for('index') }}">{{ site_settings.site_title }}</a>
-    <nav class="nav">
-      {% for p in nav_pages %}
-        <a href="{{ url_for('page', slug=p.slug) }}">{{ p.title }}</a>
-      {% endfor %}
-    </nav>
-  </header>
+<body>
 
-  <main class="wrap">
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        <div class="flash">
-          {% for cat, msg in messages %}
-            <div class="flash_item {{ cat }}">{{ msg }}</div>
-          {% endfor %}
+  <div class="topbar">
+    <div class="wrap">
+      <header class="header">
+
+        <div class="brandRow">
+          <div class="brand">
+            <h1 class="brandTitle">{{ site_settings.site_title if site_settings else "Dyrevenner bak hekken" }}</h1>
+            <div class="brandPynt" aria-hidden="true">❀ ✿ ❀</div>
+          </div>
+
+          <div class="brandPynt" aria-hidden="true">🐝 🐰 🌿</div>
         </div>
-      {% endif %}
-    {% endwith %}
-    {% block content %}{% endblock %}
+
+        <p class="tagline">
+          {{ site_settings.site_tagline if site_settings and site_settings.site_tagline else "Trygt liv for kaninar, med hjarte og kunnskap" }}
+        </p>
+
+        <nav class="nav">
+          <a href="{{ url_for('index') }}">Heim</a>
+          {% for p in nav_pages %}
+            <a href="{{ url_for('page', slug=p.slug) }}">{{ p.title }}</a>
+          {% endfor %}
+          <a href="{{ url_for('admin_login') }}">Admin</a>
+        </nav>
+
+      </header>
+    </div>
+  </div>
+
+  <main class="main">
+    <div class="wrap">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div style="margin: 0 0 14px 0;">
+            {% for category, message in messages %}
+              <div style="padding: 10px 12px; border: 1px solid rgba(0,0,0,0.12); border-radius: 12px; margin-bottom: 8px; background: rgba(243,239,230,0.7);">
+                {{ message }}
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+
+      {% block content %}{% endblock %}
+    </div>
   </main>
 
-  <footer class="wrap footer">
-    <div class="muted">© {{ site_settings.site_title }}</div>
-    <div class="muted"><a class="admin_link" href="{{ url_for('admin_login') }}">admin</a></div>
+  <footer class="footer">
+    <div class="wrap footerInner">
+      <svg class="footerBorder" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0,95 C120,70 220,110 360,92 C520,70 640,110 820,92 C980,75 1090,110 1200,88 L1200,120 L0,120 Z"
+              fill="rgba(127,176,140,0.45)"></path>
+        <path d="M0,103 C140,86 240,116 380,102 C540,86 680,118 840,102 C990,90 1100,116 1200,98 L1200,120 L0,120 Z"
+              fill="rgba(95,143,114,0.40)"></path>
+
+        <g transform="translate(200,78)" opacity="0.9">
+          <path d="M0,0 C20,-18 45,-12 54,6 C62,22 47,40 28,34 C18,30 14,18 18,10 C22,2 32,2 36,8"
+                fill="none" stroke="rgba(34,48,38,0.55)" stroke-width="3" stroke-linecap="round"></path>
+          <circle cx="18" cy="10" r="4" fill="rgba(255,210,90,0.9)"></circle>
+          <circle cx="34" cy="6" r="4" fill="rgba(255,210,90,0.9)"></circle>
+        </g>
+
+        <g transform="translate(980,82)" opacity="0.9">
+          <ellipse cx="0" cy="0" rx="12" ry="7" fill="rgba(0,0,0,0.12)"></ellipse>
+          <path d="M-14,0 C-14,-18 14,-18 14,0 C14,14 -14,14 -14,0 Z" fill="rgba(255,255,255,0.85)"></path>
+          <ellipse cx="-6" cy="-2" rx="3" ry="4" fill="rgba(34,48,38,0.65)"></ellipse>
+          <ellipse cx="6" cy="-2" rx="3" ry="4" fill="rgba(34,48,38,0.65)"></ellipse>
+          <path d="M-8,-16 C-22,-28 -10,-44 2,-30" stroke="rgba(255,255,255,0.85)" stroke-width="6" fill="none" stroke-linecap="round"></path>
+          <path d="M8,-16 C22,-28 10,-44 -2,-30" stroke="rgba(255,255,255,0.85)" stroke-width="6" fill="none" stroke-linecap="round"></path>
+        </g>
+      </svg>
+
+      <div class="footerNote">
+        © {{ site_settings.site_title if site_settings else "Dyrevenner bak hekken" }}
+      </div>
+    </div>
   </footer>
+
 </body>
 </html>
