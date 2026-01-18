@@ -1,37 +1,179 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;600&display=swap");
+
 :root{
-  --primary: #7a9b7e;
-  --ink: #2b2b2b;
-  --paper: #fbfaf7;
-  --font: Georgia, "Times New Roman", serif;
+  --bg: #ffffff;
+  --ink: #1f2a24;
+  --muted: #4a5a52;
+
+  --beige: #f3efe6;
+  --beige2: #efe6d6;
+
+  --green: #5f8f72;
+  --green2: #7fb08c;
+
+  --line: rgba(0,0,0,0.10);
+  --shadow: 0 10px 22px rgba(0,0,0,0.10);
+  --radius: 18px;
+
+  --titleFont: "Playfair Display", Georgia, serif;
+  --bodyFont: "Inter", system-ui, Segoe UI, Roboto, Arial, sans-serif;
 }
 
 *{ box-sizing: border-box; }
+
 body{
-  margin:0;
-  font-family: var(--font);
-  background: var(--paper);
+  margin: 0;
+  background: var(--bg);
   color: var(--ink);
+  font-family: var(--bodyFont);
 }
 
-.wrap{ width: min(1100px, 92vw); margin: 0 auto; }
+a{ color: inherit; }
 
-.header{ display:flex; align-items:center; justify-content:space-between; padding:18px 0; }
-.brand{ font-weight:700; text-decoration:none; color:var(--ink); font-size:22px; }
-.nav a{ margin-left:14px; text-decoration:none; color:var(--ink); padding:8px 10px; border-radius:10px; }
-.nav a:hover{ background: rgba(0,0,0,.05); }
+.wrap{
+  width: min(1100px, calc(100% - 56px));
+  margin: 0 auto;
+}
 
-.hero{ text-align:center; padding:40px 0 24px 0; }
-.hero h1{ margin:0; font-size:40px; }
-.hero p{ margin:6px 0 0 0; font-size:18px; color:#555; }
+.topbar{
+  background: radial-gradient(900px 280px at 15% 0%, rgba(127,176,140,0.20), transparent 60%),
+              radial-gradient(900px 280px at 85% 0%, rgba(243,239,230,0.85), transparent 60%),
+              linear-gradient(180deg, var(--beige), #ffffff);
+  border-bottom: 1px solid var(--line);
+}
 
-.grid{ display:grid; grid-template-columns: repeat(2, minmax(220px,1fr)); gap:18px; margin: 24px 0 40px 0; }
+.header{
+  padding: 18px 0 10px 0;
+  display: grid;
+  gap: 6px;
+}
 
-.card{ background:white; border-radius:22px; overflow:hidden; box-shadow:0 10px 26px rgba(0,0,0,.08); text-decoration:none; color:var(--ink); }
-.card_img{ height:260px; background:#eef1f3; }
-.card_img img{ width:100%; height:100%; object-fit:cover; }
-.card_body{ padding:14px 16px; text-align:center; }
-.card_title{ font-size:22px; font-weight:600; }
+.brandRow{
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+}
 
-.page{ background:white; border-radius:22px; padding:22px; box-shadow:0 10px 26px rgba(0,0,0,.08); }
+.brand{
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
 
-.footer{ padding:22px 0 30px 0; display:flex; justify-content:space-between; color:#666; }
+.brandTitle{
+  margin: 0;
+  font-family: var(--titleFont);
+  font-size: clamp(28px, 3.2vw, 44px);
+  letter-spacing: 0.2px;
+  color: #223026;
+}
+
+.brandPynt{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  color: var(--green);
+  font-size: 18px;
+  opacity: 0.95;
+}
+
+.tagline{
+  margin: 0;
+  color: var(--muted);
+  max-width: 70ch;
+  line-height: 1.35;
+  font-size: 14px;
+}
+
+.nav{
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 6px 0 10px 0;
+}
+
+.nav a{
+  text-decoration: none;
+  padding: 7px 11px;
+  border-radius: 999px;
+  background: rgba(95,143,114,0.12);
+  border: 1px solid rgba(95,143,114,0.18);
+  font-size: 13px;
+}
+
+.main{
+  padding: 18px 0 34px 0;
+}
+
+.grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  padding: 6px 0 0 0;
+}
+
+@media (max-width: 820px){
+  .wrap{ width: min(1100px, calc(100% - 28px)); }
+  .grid{ grid-template-columns: 1fr; }
+}
+
+.card{
+  display: grid;
+  grid-template-rows: 120px auto;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: #ffffff;
+  box-shadow: var(--shadow);
+  text-decoration: none;
+}
+
+.cardImg{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  background: var(--beige2);
+}
+
+.cardBody{
+  padding: 12px 14px 14px 14px;
+}
+
+.cardTitle{
+  margin: 0 0 6px 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: #203028;
+}
+
+.cardText{
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.footer{
+  margin-top: 26px;
+  border-top: 1px solid var(--line);
+  background: linear-gradient(0deg, rgba(243,239,230,0.95), rgba(255,255,255,1));
+}
+
+.footerInner{
+  padding: 10px 0 0 0;
+}
+
+.footerNote{
+  padding: 8px 0 14px 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.footerBorder{
+  width: 100%;
+  height: 92px;
+  display: block;
+}
